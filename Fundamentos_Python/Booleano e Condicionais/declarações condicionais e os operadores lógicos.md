@@ -1,0 +1,160 @@
+# Como funcionam as declarações condicionais e os operadores lógicos?
+
+Instruções condicionais, ou condicionais, permitem que você controle o fluxo do seu programa com base em se certas condições são verdadeiras ou falsas.
+
+Mas antes de entrarmos em tudo isso, vamos revisar os blocos básicos das declarações condicionais, começando pelos operadores de comparação. Operadores de comparação são operadores que permitem comparar dois ou mais valores e retornar um valor booleano.
+
+Em uma lição anterior, você aprendeu que booleanos são um dos tipos de dados em Python e podem ser apenas `True` ou `False`.
+
+Aqui está uma tabela com os operadores de comparação em Python:
+
+|Operador|Nome|Descrição|
+|---|---|---|
+|`==`|Igual|Verifica se dois valores são iguais|
+|`!=`|Diferente|Verifica se dois valores são diferentes|
+|`>`|Maior que|Verifica se o valor à esquerda é maior que o valor à direita|
+|`<`|Menor que|Verifica se o valor à esquerda é menor que o valor à direita|
+|`>=`|Maior ou igual|Verifica se o valor à esquerda é maior ou igual ao valor à direita|
+|`<=`|Menor ou igual|Verifica se o valor à esquerda é menor ou igual ao valor à direita|
+
+Aqui estão algumas dessas expressões que avaliam para `True` ou `False`:
+
+```python
+print(3 > 4) # False
+print(3 < 4) # True
+print(3 == 4) # False
+print(4 == 4) # True
+print(3 != 4) # True
+print(3 >= 4) # False
+print(3 <= 4) # True
+```
+
+Esses operadores podem ser usados em condicionais para comparar valores e executar determinado código com base em se a condicional avalia para `True` ou `False`.
+
+Em Python, a condicional mais básica é a declaração `if`. Aqui está a sintaxe básica:
+
+```python
+if condition:
+    pass # Code to execute if condition is True
+```
+
+- As declarações `if` começam com a palavra-chave `if`.
+    
+- `condition` é uma expressão que avalia para `True` ou `False`, seguida por dois pontos (`:`).
+    
+- O corpo da declaração `if` constitui um bloco de código, que é um grupo de declarações que pertencem juntas. Espaços no início de uma linha são chamados de indentação. Em Python, a indentação determina quais declarações pertencem a um bloco de código.
+    
+
+No exemplo acima, o corpo da instrução `if` contém uma instrução `pass`. Quando uma instrução `pass` é executada, nada acontece. Esta é uma palavra-chave especial que pode ser usada como um marcador de posição para código futuro e é útil quando blocos de código vazios não são permitidos.
+
+O código dentro do corpo da instrução `if` é executado somente quando a condição avalia para `True`. Por exemplo:
+
+```python
+age = 18
+
+if age >= 18:
+    print('You are an adult') # You are an adult
+```
+
+Os quatro espaços antes de `print('You are an adult')` indentam essa linha e a colocam dentro do bloco `if`.
+
+O código a seguir geraria um `IndentationError`, que é a forma do Python indicar que a indentação é necessária em um determinado ponto do código:
+
+```py
+age = 18
+
+if age >= 18:
+print('You are an adult') # IndentationError: expected an indented block after 'if' statement on line 3
+```
+
+Embora você possa usar qualquer número de espaços (desde que seja consistente) para determinar cada nível de indentação, o guia de estilo do Python recomenda usar quatro espaços.
+
+Blocos também são encontrados em loops e funções, que você aprenderá em lições futuras.
+
+Voltando ao nosso exemplo, se `age` for menor que `18`, nada será impresso no terminal:
+
+```python
+age = 12
+
+if age >= 18:
+    print('You are an adult') # Nothing shows up in the terminal
+```
+
+Mas e se você também quiser imprimir algo se `age` for menor que `18`? É aí que entra a cláusula `else`. A cláusula `else` é executada quando a condição `if` é falsa. Aqui está a sintaxe para uma declaração `if…else`:
+
+```python
+if condition:
+   pass # Code to execute if condition is True
+else:
+   pass # Code to execute if condition is False
+```
+
+Por exemplo:
+
+```python
+age = 12
+
+if age >= 18:
+    print('You are an adult')
+else:
+    print('You are not an adult yet') # You are not an adult yet
+```
+
+Observe que você não pode colocar nenhuma declaração entre o bloco `if` e a cláusula `else`. O seguinte código geraria um `SyntaxError`:
+
+```python
+age = 12
+
+if age >= 18:
+    print('You are an adult')
+print('Almost there!')
+else: # SyntaxError: invalid syntax
+    print('You are not an adult yet')
+```
+
+Podem haver situações em que você queira considerar múltiplas condições. Para fazer isso, Python permite que você estenda sua declaração if com a palavra-chave `elif` (else if).
+
+Aqui está a sintaxe:
+
+```python
+if condition1:
+   pass # Code to execute if condition1 is True
+elif condition2:
+   pass # Code to execute if condition1 is False and condition2 is True
+else:
+   pass # Code to execute if all conditions are False
+```
+
+Por exemplo:
+
+```python
+age = 12
+
+if age >= 18:
+    print('You are an adult')
+elif age >= 13:
+    print('You are a teenager')
+else:
+    print('You are a child') # You are a child
+```
+
+Observe que você pode usar quantas cláusulas `elif` quiser:
+
+```python
+age = 2
+
+if age >= 65:
+    print('You are a senior citizen')
+elif age >= 30:
+    print('You are an adult in your prime')
+elif age >= 18:
+    print('You are a young adult')
+elif age >= 13:
+    print('You are a teenager')
+elif age >= 3:
+    print('You are a young child')
+else:
+    print('You are a toddler or an infant') # You are a toddler or an infant
+```
+
+Agora que você entende como os operadores de comparação e as declarações condicionais funcionam em Python, você pode começar a escrever programas que tomam decisões com base na lógica e na entrada. Quer você esteja comparando valores ou ramificando através de múltiplas condições, essas ferramentas são a base para escrever código flexível e responsivo.
