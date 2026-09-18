@@ -1,0 +1,145 @@
+# Quais São Alguns Métodos Comuns Usados para Listas?
+
+Na lição anterior, você foi apresentado ao tipo de dado lista e aprendeu como acessar elementos de uma lista assim como fatiamento de listas. Nesta lição, você continuará a aprender sobre listas e alguns métodos comuns associados a elas como `append()`, `pop()` e `sort()`.
+
+O primeiro método que vamos analisar é o método `append()`. Isto é usado para adicionar um item ao final da lista. Aqui está um exemplo de uso do método `append()` para adicionar o número `6` à lista de números:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+Se você quiser adicionar uma lista ao final de outra, também pode usar o método `append()` assim:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.append(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, [6, 8, 10]]
+```
+
+Observe como toda a lista `even_numbers` está aninhada dentro da lista `numbers`.
+
+Mas se você quiser adicionar todos os números individuais da lista `even_numbers` ao final da lista `numbers`, então você pode usar o método `extend()`.
+
+O método `extend()` é semelhante ao método `append()`, mas com `extend()` você pode adicionar múltiplos elementos de uma lista para outra. Aqui está um exemplo de como adicionar os números `6`, `8` e `10` de uma lista ao final da lista `numbers`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.extend(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, 6, 8, 10]
+```
+
+Como você pode ver, a lista aninhada desapareceu e agora é apenas uma lista de números.
+
+Para inserir um elemento em um índice específico em uma lista, você pode usar o método `insert()`. Este método aceita dois argumentos: o índice onde você deseja inserir o novo item e o item que você quer inserir.
+
+Aqui está um exemplo de uso do método `insert()`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.insert(2, 2.5)
+
+print(numbers) # [1, 2, 2.5, 3, 4, 5]
+```
+
+O código a seguir irá inserir o número `2.5` no índice `2` na lista `numbers`.
+
+Se você quiser remover um elemento de uma lista, pode usar o método `remove()`. O método `remove()` recebe o valor do elemento a ser removido como argumento:
+
+```py
+numbers = [10, 20, 30, 40, 50, 50]
+numbers.remove(50)
+
+print(numbers) # [10, 20, 30, 40, 50]
+```
+
+É importante notar que este método removerá apenas a primeira ocorrência de um item. Nem todos eles:
+
+```py
+numbers = [10, 20, 30, 40, 50, 50, 50]
+numbers.remove(50)
+
+print(numbers) # [10, 20, 30, 40, 50, 50]
+```
+
+Para remover um elemento em um índice específico na lista, você pode usar o método `pop()` assim:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop(1) # The number 2 is returned
+```
+
+Se você não especificar um elemento para o método `pop`, então o último elemento será removido.
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop() # The number 5 is returned
+```
+
+Se você precisar esvaziar a lista, então pode usar o método `clear()` assim:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.clear()
+
+print(numbers) # []
+```
+
+O próximo método que vamos analisar é o método `sort()`. Esse método é usado para ordenar os elementos no próprio lugar. Aqui está um exemplo de como ordenar uma lista aleatória de números no próprio lugar:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+numbers.sort()
+
+print(numbers) # [1, 2, 19, 35, 41, 67]
+```
+
+Em contraste com o método `sort()`, existe a função `sorted()` que funciona para qualquer iterável e retorna uma nova lista ordenada em vez de modificar a lista original. Por exemplo:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+sorted_numbers = sorted(numbers)
+
+print(numbers) # [19, 2, 35, 1, 67, 41]
+print(sorted_numbers) # [1, 2, 19, 35, 41, 67]
+```
+
+Como lembrete, um iterável é um tipo especial de objeto que você pode percorrer, permitindo acessar cada item um de cada vez. Você aprenderá mais sobre como os loops funcionam em Python em uma lição futura.
+
+Tanto o método `sort()` quanto a função `sorted()` aceitam os parâmetros opcionais `key` e `reverse`. Você aprenderá mais sobre esses parâmetros opcionais em uma lição futura quando estudar tuplas. Você também aprenderá mais sobre outras funções internas como `sorted()` em lições futuras.
+
+O próximo método que vamos analisar é o método `reverse()`. Este método inverte uma lista de elementos no local assim:
+
+```py
+numbers = [6, 5, 4, 3, 2, 1]
+numbers.reverse()
+
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+O último método que vamos analisar é o método `index`. Isto é usado para encontrar o primeiro índice onde um elemento pode ser encontrado em uma lista. Aqui está um exemplo de uso do método `index` para encontrar a linguagem `'Java'` em uma lista `programming_languages`:
+
+```py
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+programming_languages.index('Java') # 1
+```
+
+Se o elemento não puder ser encontrado, então o Python lança um `ValueError`:
+
+```py
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+programming_languages.index('JavaScript')
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: 'JavaScript' is not in list
+"""
+```
+
+Existem mais alguns métodos para listas Python, mas esta lista inicial de métodos é um bom ponto de partida.
