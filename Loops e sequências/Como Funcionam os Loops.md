@@ -1,0 +1,152 @@
+# Como Funcionam os Loops?
+
+Loops são usados para repetir um bloco de código. Nesta lição, você vai aprender a trabalhar com diferentes tipos de loops em Python.
+
+O primeiro loop que vamos abordar é o loop `for`. Aqui está um exemplo de uso de um loop `for` para iterar por uma lista e imprimir cada item no console:
+
+```py
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+
+for language in programming_languages:
+    print(language)
+```
+
+O resultado seria:
+
+```md
+Rust
+Java
+Python
+C++
+```
+
+Note que o `print(language)` está indentado dentro do loop. Sem essa indentação, você receberia um `IndentationError`:
+
+```python
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+IndentationError: expected an indented block after 'for' statement on line 3
+"""
+```
+
+Você também pode usar um loop `for` para iterar por outros iteráveis como uma string. Aqui está um exemplo de uso de um loop `for` para percorrer a string `code` e imprimir cada caractere:
+
+```py
+for char in 'code':
+    print(char)
+```
+
+O resultado seria:
+
+```md
+c
+o
+d
+e
+```
+
+Você pode aninhar `for` loops em Python. Aqui está um exemplo de um `for` loop aninhado:
+
+```py
+categories = ['Fruit', 'Vegetable']
+foods = ['Apple', 'Carrot', 'Banana']
+
+for category in categories:
+    for food in foods:
+        print(category, food)
+```
+
+O loop externo irá iterar por cada `category` na lista `categories`. Para cada `category`, o loop interno irá iterar por cada `food` na lista `foods`. Aqui está o resultado que será impresso no console:
+
+```md
+Fruit Apple
+Fruit Carrot
+Fruit Banana
+Vegetable Apple
+Vegetable Carrot
+Vegetable Banana
+```
+
+Outro tipo de loop que você pode usar em Python é o loop `while`. Este tipo de loop repetirá um bloco de código até que a condição seja `False`. Aqui está um exemplo de uso de um loop `while` para um jogo de adivinhação:
+
+```py
+secret_number = 3
+guess = 0
+
+while guess != secret_number:
+    guess = int(input('Guess the number (1-5): '))
+    if guess != secret_number:
+        print('Wrong! Try again.')
+
+print('You got it!')
+```
+
+Neste exemplo temos uma variável `secret_number` com o valor `3` e um palpite inicial de `0`. Depois usamos a função `input` para obter a entrada do usuário, então convertemos a string de entrada em um inteiro com a função `int()` e atribuímos ao variável `guess`. Se o usuário acertar o palpite digitando `3`, o loop `while` é interrompido e a mensagem `You got it!` é impressa no console. Caso contrário, a mensagem `Wrong! Try again.` é impressa no console, e o loop se repete, pedindo para o usuário tentar novamente.
+
+Aqui está um exemplo de resultado:
+
+```md
+Guess the number (1-5): 2
+Wrong! Try again.
+Guess the number (1-5): 1
+Wrong! Try again.
+Guess the number (1-5): 3
+You got it!
+```
+
+Python suporta as declarações `break` e `continue`.
+
+A instrução `break` é usada para parar a execução de um loop. Aqui está um exemplo de uso da instrução `break` para uma lista de `developer_names`:
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        break
+    print(developer)
+```
+
+Neste exemplo, iteramos por uma lista de `developer_names` e imprimimos cada nome no console. Se o nome for igual a `Naomi`, então saímos do loop. Isso resulta em apenas o nome `Jess` sendo impresso no console.
+
+A instrução `continue` é usada para pular a iteração atual de um loop e passar para a próxima iteração. Vamos modificar o exemplo anterior para usar a instrução `continue` em vez de `break`:
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        continue
+    print(developer)
+```
+
+Agora o resultado no console será diferente. Os nomes `Jess` e `Tom` são impressos porque a instrução `continue` pula a segunda iteração do loop quando `developer` é igual a `Naomi` e não imprime esse nome no console.
+
+Tanto os loops `for` e `while` podem ser combinados com uma cláusula `else`, que é executada somente quando o loop não é terminado por uma instrução `break`. Aqui está um exemplo de uso de múltiplos `for` loops:
+
+```python
+words = ['sky', 'apple', 'rhythm', 'fly', 'orange']
+
+for word in words:
+    for letter in word:
+        if letter.lower() in 'aeiou':
+            print(f"'{word}' contains the vowel '{letter}'")
+            break
+    else:
+        print(f"'{word}' has no vowels")
+```
+
+Neste exemplo temos uma lista de palavras aleatórias, e um loop `for` é usado para percorrer cada palavra. Dentro do loop externo `for`, temos outro loop `for` para percorrer cada letra de cada palavra. Se a versão em minúsculas da letra for uma vogal, imprimimos a palavra seguida das vogais que ela contém, então saímos do loop interno com um break. Se a palavra não contiver vogais, imprimimos uma mensagem indicando isso.
+
+Aqui está como o resultado aparece no console:
+
+```md
+'sky' has no vowels
+'apple' contains the vowel 'a'
+'rhythm' has no vowels
+'fly' has no vowels
+'orange' contains the vowel 'o'
+```
+
+Loops são muito comuns em Python, então é importante se familiarizar com eles. Nas próximas aulas, você aprenderá como trabalhar com as funções `enumerate()` e `range()` em loops.
