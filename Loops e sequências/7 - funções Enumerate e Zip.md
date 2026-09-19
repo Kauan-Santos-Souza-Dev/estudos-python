@@ -1,0 +1,111 @@
+# O que são as funções Enumerate e Zip e como elas funcionam?
+
+Nas lições anteriores você aprendeu como trabalhar com o loop `for`, que é usado para repetir um bloco de código um número definido de vezes. Aqui está um exemplo de uso de um loop `for` para imprimir cada linguagem da lista `languages` no console:
+
+```py
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+for language in languages:
+    print(language)
+```
+
+Mas e se você quisesse acompanhar o índice de cada elemento? Bem, uma opção é criar uma variável `index` e incrementá-la em `1` para cada iteração do loop, assim:
+
+```py
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+index = 0
+
+for language in languages:
+    print(f'Index {index} and language {language}')
+    index += 1
+```
+
+Embora isso funcione, uma maneira mais fácil de fazer isso é usando a função `enumerate()`. A função `enumerate()` mantém o controle do índice para um iterável e retorna um objeto enumerate.
+
+Se passarmos a lista `languages` para a função `enumerate()` e convertermos seu valor retornado em uma lista com a função `list()`, fica assim:
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+list(enumerate(languages))
+# [(0, 'Spanish'), (1, 'English'), (2, 'Russian'), (3, 'Chinese')]
+```
+
+Cada entrada no objeto enumerate (agora uma lista) é uma tupla contendo uma contagem seguida por um valor do iterável passado para a função `enumerate()`.
+
+Agora, vamos refatorar o exemplo de antes para usar a função `enumerate()`:
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+for index, language in enumerate(languages):
+    print(f'Index {index} and language {language}')
+```
+
+Desempacotamos a contagem e o valor de cada tupla no objeto enumerate em variáveis chamadas `index` e `language`, respectivamente. Finalmente, ambas as variáveis são usadas em uma f-string que é impressa no console em cada iteração do loop.
+
+```md
+Index 0 and language Spanish
+Index 1 and language English
+Index 2 and language Russian
+Index 3 and language Chinese
+```
+
+Isso elimina a necessidade de criar e atualizar manualmente uma variável `index`.
+
+A função `enumerate()` também aceita um argumento opcional `start` que especifica o valor inicial para a contagem. Se este argumento for omitido, a contagem começará em `0`. Aqui está um exemplo de uso do argumento opcional `start`:
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+for index, language in enumerate(languages, 1):
+    print(f'Index {index} and language {language}')
+```
+
+E aqui está como o resultado aparecerá no console:
+
+```md
+Index 1 and language Spanish
+Index 2 and language English
+Index 3 and language Russian
+Index 4 and language Chinese
+```
+
+Até agora, só temos iterado sobre uma lista. Mas e se você precisar iterar sobre múltiplos iteráveis em paralelo? Bem, você pode usar a função `zip()` para isso, que combina listas em pares de elementos e retorna um iterador de tuplas.
+
+Se passarmos uma lista de `developers` e `ids` para a função `zip()` e convertermos seu valor retornado em uma lista com a função `list()`, aqui está como fica:
+
+```python
+developers = ['Naomi', 'Dario', 'Jessica', 'Tom']
+ids = [1, 2, 3, 4]
+
+list(zip(developers, ids))
+# [('Naomi', 1), ('Dario', 2), ('Jessica', 3), ('Tom', 4)]
+```
+
+E aqui está um exemplo de uso da função `zip()` com um loop `for` para iterar sobre `developers` e `ids`:
+
+```python
+developers = ['Naomi', 'Dario', 'Jessica', 'Tom']
+ids = [1, 2, 3, 4]
+
+for name, dev_id in zip(developers, ids):
+    print(f'Name: {name}')
+    print(f'ID: {dev_id}')
+```
+
+Neste exemplo, `zip()` combina as duas listas em pares de elementos e retorna um iterador de tuplas. O `for` loop então desempacota cada tupla em `name` e `dev_id`. Por fim, para cada declaração de impressão, estamos imprimindo cada `name` e `dev_id` das listas `ids` e `developers`, respectivamente. Aqui está como o resultado aparece no console:
+
+```md
+Name: Naomi
+ID: 1
+Name: Dario
+ID: 2
+Name: Jessica
+ID: 3
+Name: Tom
+ID: 4
+```
+
+As funções `enumerate()` e `zip()` são muito poderosas e, quando combinadas com loops, podem tornar seu código muito mais conciso.
