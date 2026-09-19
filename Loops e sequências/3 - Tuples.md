@@ -1,0 +1,120 @@
+#  O que são Tuples e Como Elas Funcionam?
+
+Uma tupla é um tipo de dado Python usado para criar uma sequência ordenada de valores. Tuplas podem conter um conjunto misto de tipos de dados assim:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+```
+
+Tuples são semelhantes a listas, mas enquanto listas são um tipo de dado mutável, tuples são imutáveis. Isso significa que os elementos em uma tupla não podem ser alterados depois que ela é criada.
+
+Se você tentar atualizar um dos itens na tupla, você receberá um `TypeError`:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+programming_languages[0] = 'JavaScript'
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: 'tuple' object does not support item assignment
+"""
+```
+
+Para acessar um elemento de uma tupla, você pode usar a notação de colchetes e o número do índice:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+developer[1] # 34
+```
+
+Se você precisar acessar elementos começando do final de uma tupla, então você pode usar indexação negativa. Aqui está um exemplo de uso de um índice negativo para acessar o penúltimo elemento em uma tupla:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[-2] # 4
+```
+
+Se você tentar passar um número de índice que excede ou é igual ao comprimento da tupla, então você receberá um `IndexError` assim:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[7]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+IndexError: list index out of range
+"""
+```
+
+Outra forma de criar uma tupla é usando o construtor `tuple()` assim:
+
+```py
+developer = 'Jessica'
+tuple(developer) # ('J', 'e', 's', 's', 'i', 'c', 'a')
+```
+
+Para o construtor `tuple()`, você pode passar diferentes iteráveis como strings, listas e até outras tuplas.
+
+Para verificar se um item está em uma tupla, você pode usar a palavra-chave `in` assim:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+
+'Rust' in programming_languages # True
+'JavaScript' in programming_languages # False
+```
+
+Você também pode desempacotar itens de uma tupla assim como fez com listas:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, age, job = developer
+
+print(name) # 'Alice'
+print(age) # 34
+print(job) # 'Rust Developer'
+```
+
+Neste exemplo, `name` tem o valor `'Alice'`, `age` tem o valor `34` e `job` tem o valor `'Rust Developer'`.
+
+Se você precisar coletar quaisquer elementos restantes de uma tupla, pode usar o operador asterisco (`*`) assim:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, *rest = developer
+
+print(name) # 'Alice'
+print(rest) # [34, 'Rust Developer']
+```
+
+Aqui, `name` tem o valor `'Alice'` e `rest` é uma lista composta pelo número `34` e a string `'Rust Developer'`.
+
+Assim como em uma lista, você pode usar o operador slice em uma tupla para extrair uma parte dela. Aqui está um exemplo de extração dos itens `'pie'` e `'cookies'` para uma tupla separada:
+
+```py
+desserts = ('cake', 'pie', 'cookies', 'ice cream')
+desserts[1:3] # ('pie', 'cookies')
+```
+
+Lembre-se de que o primeiro número representa o índice inicial para a extração enquanto o segundo número representa o índice final. Mas note que o item no índice final não está incluído na tupla extraída.
+
+Se você precisar remover um item de uma tupla, isso não é possível porque as tuplas são imutáveis. Então este exemplo vai produzir um erro:
+
+```py
+developer = ('Jane Doe', 23, 'Python Developer')
+del developer[1]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: "tuple" object doesn't support item deletion
+"""
+```
+
+Então, quando você pode usar uma tupla em vez de uma lista?
+
+Se você precisa de uma coleção dinâmica de elementos onde pode adicionar, remover e atualizar elementos, então deve usar uma lista. Se você sabe que está trabalhando com uma coleção fixa e imutável de dados, então você deve usar uma tuple.
+
+Na próxima lição, vamos analisar alguns métodos comuns que você usará ao trabalhar com tuples.
