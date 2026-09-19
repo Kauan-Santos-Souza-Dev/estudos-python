@@ -1,0 +1,68 @@
+# O que são Ranges e Como Você Pode Usá-los em um Loop?
+
+A função `range()` é usada para gerar uma sequência de números inteiros. Aqui está a sintaxe básica para a função `range()`:
+
+```py
+range(start, stop, step)
+```
+
+O argumento obrigatório `stop` é um inteiro que representa o ponto final para a sequência de números que está sendo gerada. Aqui está um exemplo de uso da função `range()`:
+
+```py
+for num in range(3):
+    print(num)
+```
+
+O código a seguir gera uma sequência de números entre `0` e `2`. O inteiro `3` não está incluído porque o argumento `stop` é não inclusivo.
+
+Se um argumento `start` não for especificado, o padrão é `0`. Caso contrário, você pode usar o argumento opcional `start` para iniciar a sequência de inteiros em um inteiro diferente de `0`. Aqui está um exemplo de como gerar uma sequência de números inteiros entre `1` e `4`:
+
+```py
+for num in range(1, 5):
+    print(num)
+```
+
+Por padrão a sequência de inteiros será incrementada em `1`. Mas se você quiser alterar esse padrão, então você pode usar o argumento opcional `step`. Aqui está um exemplo de como gerar uma sequência de números inteiros pares entre `2` e `10`:
+
+```py
+for num in range(2, 11, 2):
+    print(num)
+```
+
+Como mencionado anteriormente, há apenas um argumento obrigatório para a função `range()`. Se você não fornecer nenhum argumento para `range()`, então você receberá um `TypeError`:
+
+```md
+ERROR!
+Traceback (most recent call last):
+  File "<main.py>", line 1, in <module>
+TypeError: range expected at least 1 argument, got 0
+```
+
+É importante notar que a função `range()` aceita apenas inteiros como argumentos, não floats. Lembre-se de que floats são números com pontos decimais como `3.4`. Se você tentar passar floats como argumentos, você receberá um `TypeError`:
+
+```md
+ERROR!
+Traceback (most recent call last):
+  File "<main.py>", line 1, in <module>
+TypeError: 'float' object cannot be interpreted as an integer
+```
+
+Se você quiser gerar uma sequência de inteiros em ordem decrescente, então pode usar um inteiro negativo para o argumento `step`, assim:
+
+```py
+for num in range(40, 0, -10):
+    print(num)
+```
+
+O código a seguir imprime os números `40`, `30`, `20` e `10` nessa ordem no console.
+
+Um objeto `range` é imutável, o que significa que não pode ser alterado depois de criado. Uma lista é mutável, então você pode mudar seus valores.
+
+Para gerar uma lista de inteiros, passe um range para o construtor `list()`. O construtor `list()` converte um iterável em uma lista. Aqui está um exemplo de geração de uma lista de inteiros pares entre `2` e `10`:
+
+```py
+numbers = list(range(2, 11, 2))
+print(numbers) # [2, 4, 6, 8, 10]
+```
+
+A função `range()` é uma maneira muito útil de gerar uma sequência de números inteiros em Python. Depois que você pegar o jeito, provavelmente vai se ver usando isso muito nos seus programas Python.
