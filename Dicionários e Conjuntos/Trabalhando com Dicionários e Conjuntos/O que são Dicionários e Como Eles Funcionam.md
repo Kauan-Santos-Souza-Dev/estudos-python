@@ -1,0 +1,149 @@
+# O que são Dicionários e Como Eles Funcionam?
+
+Em Python, dicionários são estruturas de dados embutidas que armazenam coleções de pares chave-valor. Eles funcionam de forma muito semelhante aos dicionários reais, onde você procura uma palavra para encontrar seu significado correspondente.
+
+Com dicionários Python, você usa uma chave para encontrar seu valor correspondente. Você deve usar dicionários quando precisar associar valores a chaves únicas. Isso é útil quando você precisa encontrar um valor rapidamente com base na chave e quando precisa representar dados estruturados.
+
+Esta é a sintaxe geral de um dicionário Python:
+
+```python
+dictionary = {
+    key1: value1,
+    key2: value2
+}
+```
+
+Primeiro, encontramos a variável que contém o dicionário. Você não precisa necessariamente atribuir o dicionário a uma variável, mas é muito comum fazer isso para mantê-lo na memória e usá-lo depois no código.
+
+Então isso é seguido por chaves, que às vezes são chamadas de colchetes. E dentro das chaves, existem pares chave-valor.
+
+Cada chave está associada a um valor, então você pode usar a chave para acessar esse valor. Após cada valor, exceto o último, há uma vírgula para separar os diferentes pares chave-valor. As chaves devem ser únicas no dicionário e devem ser um tipo de dado imutável. No entanto, os valores podem ser repetidos e podem ser de qualquer tipo de dado.
+
+Aqui temos um exemplo de um dicionário que armazena informações sobre uma receita de pizza Margherita:
+
+```python
+pizza = {
+    'name': 'Margherita Pizza',
+    'price': 8.9,
+    'calories_per_slice': 250,
+    'toppings': ['mozzarella', 'basil']
+}
+```
+
+O dicionário é atribuído à variável `pizza`. Ele tem quatro pares chave-valor: `name`, `price`, `calories_per_slice` e `toppings`.
+
+Outra alternativa seria usar o construtor `dict()`, que cria o dicionário a partir de uma sequência de pares chave-valor.
+
+Esta seria a sintaxe equivalente para o nosso exemplo de pizza. Passamos uma lista de tuplas como argumento para o construtor `dict()`. Estas tuplas contêm a chave como o primeiro elemento e o valor como o segundo elemento.
+
+```python
+pizza = dict([('name', 'Margherita Pizza'), ('price', 8.9), ('calories_per_slice', 250), ('toppings', ['mozzarella', 'basil'])])
+```
+
+Para acessar o valor de um par chave-valor, você pode usar esta sintaxe, conhecida como notação de colchetes. É o nome da variável que contém o dicionário, seguido por colchetes e a chave que você quer acessar dentro dos colchetes:
+
+```python
+dictionary[key]
+```
+
+No nosso exemplo de pizza, se você quiser acessar o valor de `name`, você escreveria o nome da variável, `pizza`, seguido por colchetes e a chave, `name`, entre aspas:
+
+```python
+pizza['name']
+```
+
+Isso será avaliado como:
+
+```python
+'Margherita Pizza'
+```
+
+Para atualizar um valor, você só precisa adicionar o operador de atribuição, seguido pelo novo valor.
+
+Se a chave não existir no dicionário, um novo par chave-valor será criado. Nas versões recentes do Python, os dicionários preservam a ordem de inserção. Isso é útil quando você precisa iterar sobre o dicionário:
+
+```python
+pizza['name'] = 'Margherita'
+```
+
+Agora o valor da chave `name` é `'Margherita'`:
+
+```python
+print(pizza['name']) # 'Margherita'
+```
+
+Dicionários também possuem métodos úteis para realizar operações comuns.
+
+O método `.get()` recupera o valor associado a uma chave. É semelhante à notação de colchetes que acabamos de usar, mas sua vantagem é que você pode definir um valor padrão, para que não receba um erro se a chave não existir:
+
+```python
+dictionary.get(key, default)
+```
+
+Neste exemplo, se a chave `toppings` não existir, ela retornará uma lista vazia, que é o valor padrão que estamos passando aqui como o segundo argumento. Mas se `toppings` existir, ele retornará esse valor:
+
+```python
+pizza.get('toppings', []) # ['mozzarella', 'basil']
+```
+
+Os métodos `.keys()` e `.values()` retornam um objeto view com todas as chaves e valores no dicionário, respectivamente:
+
+```python
+pizza.keys()
+# dict_keys(['name', 'price', 'calories_per_slice'])
+
+pizza.values()
+# dict_values(['Margherita Pizza', 8.9, 250])
+```
+
+Um objeto view é apenas uma forma de ver o conteúdo de um dicionário sem criar uma cópia separada dos dados.
+
+O método `.items()` retorna um objeto view com todos os pares chave-valor no dicionário, incluindo tanto as chaves e os valores:
+
+```python
+pizza.items()
+# dict_items([('name', 'Margherita Pizza'), ('price', 8.9), ('calories_per_slice', 250)])
+```
+
+O método `.clear()` remove todos os pares chave-valor do dicionário:
+
+```python
+pizza.clear()
+```
+
+O método `.pop()` remove o par chave-valor com a chave que você especifica como o primeiro argumento e retorna seu valor. Se a chave não existir, ela retorna o valor padrão que você especificar como o segundo argumento. Se a chave não existir e você não passar um valor padrão, um `KeyError` será gerado:
+
+```python
+pizza.pop('price', 10)
+pizza.pop('total_price') # KeyError
+```
+
+No Python 3.7 e versões mais recentes, o método `.popitem()` remove o último item inserido:
+
+```python
+pizza.popitem()
+```
+
+E finalmente, o método `.update()` atualiza os pares chave-valor com os pares chave-valor de outro dicionário. Se eles têm chaves em comum, seus valores são sobrescritos.
+
+Neste exemplo, estamos atualizando o dicionário `pizza`. A chave `price` existe em ambos, então seu valor será substituído por `15`.
+
+Mas `total_time` é novo, então será adicionado ao dicionário `pizza` como um novo par chave-valor:
+
+```python
+pizza.update({ 'price': 15, 'total_time': 25 })
+```
+
+Este é o novo dicionário com o `price` atualizado e o novo `total_time`. Observe como o preço agora é `15` e `total_time` é um novo par chave-valor:
+
+```python
+{
+    'name': 'Margherita Pizza', 
+    'price': 15, 
+    'calories_per_slice': 250, 
+    'toppings': ['mozzarella', 'basil'], 
+    'total_time': 25
+}
+```
+
+Estes são alguns dos métodos de dicionário mais usados, mas existem muitos outros. Escolher o certo pode ser útil para realizar operações complexas de forma eficiente.
