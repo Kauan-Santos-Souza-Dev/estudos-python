@@ -166,24 +166,69 @@ Você pode encontrar mais informações sobre o conteúdo do módulo na document
 
 Ótimo. Agora que você sabe mais sobre módulos, você também deve conhecer este idiom muito importante em scripts Python, porque eles estão muito relacionados:
 
-```python
-if __name__ == '__main__': 
-    # Code
-```
+A ideia central é simples: **um arquivo Python pode ser executado ou importado, e o `if __name__ == '__main__'` deixa você separar os dois casos.**
 
-`__name__` é uma variável interna especial em Python.
+**O problema que ele resolve**
 
-Quando um arquivo Python é executado diretamente, o Python define o valor desta variável para a string `"__main__"`.
+Imagine o arquivo `calculos.py`:
 
-Mas se o arquivo Python for importado como um módulo em outro script Python, o valor da variável `__name__` é definido como o nome desse módulo (geralmente o nome do arquivo sem a extensão `.py`).
-
-É por isso que você frequentemente encontrará essa condicional em scripts Python. Ele contém o código que você quer executar **somente se** o script Python estiver sendo executado como o programa principal:
+python
 
 ```python
-if __name__ == '__main__': 
-    # Code
+def dobro(x):
+    return x * 2
+
+print(dobro(5))
 ```
 
-Mas se o script for importado como um módulo, o código dentro desse bloco não é executado.
+Se você roda `python calculos.py`, imprime `10`. Ótimo. Mas agora, em outro arquivo:
 
-Isso é útil porque permite que scripts Python tenham dois propósitos. Eles podem ser executados diretamente para rodar sua lógica principal ou podem ser importados para outro módulo sem executar sua lógica principal.
+python
+
+```python
+import calculos   # imprime 10 na tela, sem você pedir!
+```
+
+Ao **importar**, o Python executa o arquivo inteiro, então o `print` roda junto. Normalmente você só queria reaproveitar a função `dobro`.
+
+**A solução**
+
+python
+
+```python
+def dobro(x):
+    return x * 2
+
+if __name__ == '__main__':
+    print(dobro(5))
+```
+
+Agora:
+
+- `python calculos.py` → imprime `10`
+- `import calculos` → não imprime nada, e a função `dobro` fica disponível
+
+**Como funciona por dentro**
+
+Todo arquivo Python tem uma variável automática chamada `__name__`:
+
+- Se o arquivo foi **executado diretamente**, `__name__` vale `"__main__"`.
+- Se foi **importado**, `__name__` vale o nome do módulo (`"calculos"`).
+
+Então a condição `__name__ == '__main__'` pergunta: "este arquivo está sendo o programa principal?". Se sim, o bloco roda. Se foi importado, o bloco é ignorado.
+
+**Teste você mesmo**
+
+Crie um arquivo com apenas:
+
+python
+
+```python
+print(__name__)
+```
+
+Rode-o diretamente e veja `__main__`. Depois importe-o de outro arquivo e veja o nome do módulo aparecer.
+
+**Resumo em uma frase:** o bloco `if __name__ == '__main__'` significa "só execute isto se eu for o arquivo que foi rodado, e não se alguém me importou".
+
+Isso é muito usado em projetos reais, então você vai ver esse padrão o tempo todo.
