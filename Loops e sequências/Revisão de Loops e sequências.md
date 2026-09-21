@@ -1,0 +1,713 @@
+## Listas em Python
+
+- **Introdução**: Em Python, o tipo de dado lista é uma sequência ordenada de elementos que podem ser compostos por strings, números ou até outras listas. Listas são mutáveis e indexadas de base zero.
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+```
+
+- **Acessando elementos em uma lista**: Para acessar um elemento da lista `cities`, você pode referenciar seu número de índice na sequência:
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+cities[0] # Los Angeles
+```
+
+- **Acessando elementos usando indexação negativa**: Para acessar o último elemento de qualquer lista, você pode usar `-1` como número de índice:
+
+```python
+cities = ['Los Angeles', 'London', 'Tokyo']
+cities[-1] # Tokyo
+```
+
+- A indexação negativa é usada para acessar elementos começando do final da lista em vez do início no índice `0`.
+    
+- **Criando listas usando o construtor `list()`**: Listas também podem ser criadas usando o construtor `list()`. O construtor `list()` é usado para converter um iterável em uma lista:
+    
+
+```python
+developer = 'Jessica'
+
+print(list(developer)) 
+# Result: ['J', 'e', 's', 's', 'i', 'c', 'a']
+```
+
+- **Encontrando o comprimento de uma lista**: Você pode usar a função `len()` para obter o comprimento de uma lista:
+
+```python
+numbers = [1, 2, 3, 4, 5]
+len(numbers) # 5
+```
+
+- **Mutabilidade das listas**: Listas são mutáveis, o que significa que você pode atualizar qualquer elemento da lista desde que informe um número de índice válido. Para atualizar listas em um índice específico, você pode atribuir um novo valor a esse índice:
+
+```python
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+programming_languages[0] = 'JavaScript'
+print(programming_languages) # ['JavaScript', 'Java', 'C++', 'Rust']
+```
+
+- **Erro de índice fora do intervalo**: Se você informar um índice (positivo ou negativo) que esteja fora dos limites da lista, receberá um `IndexError`:
+
+```python
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+programming_languages[10] = 'JavaScript'
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list assignment index out of range
+"""
+```
+
+- **Removendo elementos de uma lista**: Elementos podem ser removidos de uma lista usando a palavra-chave `del`:
+
+```python
+developer = ['Jane Doe', 23, 'Python Developer']
+del developer[1]
+print(developer) # ['Jane Doe', 'Python Developer']
+```
+
+- **Verificando se um elemento existe em uma lista**: A palavra-chave `in` pode ser usada para verificar se um elemento existe em uma lista:
+
+```py
+programming_languages = ['Python', 'Java', 'C++', 'Rust']
+
+'Rust' in programming_languages # True
+'JavaScript' in programming_languages # False
+```
+
+- **Aninhando listas**: Listas podem ser aninhadas dentro de outras listas:
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+```
+
+- Para acessar a lista aninhada, você precisará acessá-la usando o índice `2` já que listas são indexadas de base zero.
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+developer[2] # ['Python', 'Rust', 'C++']
+```
+
+- Para acessar ainda mais a segunda linguagem dessa lista aninhada, você precisará acessá-la usando o índice `1`:
+
+```python
+developer = ['Alice', 25, ['Python', 'Rust', 'C++']]
+developer[2][1] # Rust
+```
+
+- **Desempacotando valores de uma lista:** Desempacotar valores de uma lista é uma técnica usada para atribuir valores de uma lista a novas variáveis. Aqui está um exemplo para desempacotar a lista `developer` em novas variáveis chamadas `name`, `age` e `job` assim:
+
+```py
+developer = ['Alice', 34, 'Rust Developer']
+name, age, job = developer
+```
+
+- Se o número de variáveis do lado esquerdo do operador de atribuição não corresponder ao total de itens na lista, você receberá um `ValueError`.
+    
+- **Coletando itens restantes de uma lista**: Para coletar quaisquer elementos restantes de uma lista, você pode usar o operador asterisco (`*`) assim:
+    
+
+```py
+developer = ['Alice', 34, 'Rust Developer']
+name, *rest = developer
+```
+
+- **Fatiando listas**: Fatiar é o conceito de acessar uma porção de uma lista usando o operador de fatia `:`. Para fatiar uma lista que começa no índice `1` e termina antes do índice `3`, você pode usar a seguinte sintaxe:
+
+```python
+desserts = ['Cake', 'Cookies', 'Ice Cream', 'Pie']
+desserts[1:3] # ['Cookies', 'Ice Cream']
+```
+
+- **Intervalos de passo**: Também é possível especificar um intervalo de passo que determina quanto incrementar entre os índices. Aqui está um exemplo se você quiser extrair uma lista apenas com números pares usando fatiamento:
+
+```python
+numbers = [1, 2, 3, 4, 5, 6]
+numbers[1::2] # [2, 4, 6]
+```
+
+## Métodos de listas
+
+- **append()**: usado para adicionar um item ao final da lista. Aqui está um exemplo de uso do método `append()` para adicionar o número `6` a esta lista `numbers`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+- **adicionando listas**: o método `append()` também pode ser usado para adicionar uma lista ao final de outra:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.append(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, [6, 8, 10]]
+```
+
+- **extend()**: usado para adicionar múltiplos itens ao final de uma lista. Aqui está um exemplo de adicionar os números `6`, `8` e `10` ao final da lista `numbers`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+even_numbers = [6, 8, 10]
+
+numbers.extend(even_numbers)
+print(numbers) # [1, 2, 3, 4, 5, 6, 8, 10]
+```
+
+- **insert()**: usado para inserir um item em um índice específico da lista. Aqui está um exemplo de uso do método `insert()`:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.insert(2, 2.5)
+
+print(numbers) # [1, 2, 2.5, 3, 4, 5]
+```
+
+- **remove()**: usado para remover um item da lista. O método `remove()` removerá apenas a primeira ocorrência de um item na lista:
+
+```py
+numbers = [1, 2, 3, 4, 5, 5, 5]
+numbers.remove(5)
+
+print(numbers) # [1, 2, 3, 4, 5, 5]
+
+```
+
+- **pop()**: usado para remover um item específico da lista e retorná-lo:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop(1) # The number 2 is returned
+```
+
+- Se você não especificar um elemento para o método `pop`, o último elemento será removido.
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.pop() # The number 5 is returned
+```
+
+- **clear()**: usado para remover todos os itens da lista:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+numbers.clear()
+
+print(numbers) # []
+```
+
+- **sort()**: o método `sort()` é usado para ordenar os elementos no local. Aqui está um exemplo de ordenar uma lista aleatória de `numbers` no local:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+numbers.sort()
+
+print(numbers) # [1, 2, 19, 35, 41, 67]
+```
+
+- **sorted()**: uma função embutida que retorna uma nova lista ordenada em vez de modificar a lista original:
+
+```py
+numbers = [19, 2, 35, 1, 67, 41]
+sorted_numbers = sorted(numbers)
+
+print(sorted_numbers) # [1, 2, 19, 35, 41, 67]
+print(numbers) # [19, 2, 35, 1, 67, 41]
+```
+
+- **reverse()**: usado para inverter a ordem dos elementos em uma lista:
+
+```py
+numbers = [6, 5, 4, 3, 2, 1]
+numbers.reverse()
+
+print(numbers) # [1, 2, 3, 4, 5, 6]
+```
+
+- **index()**: usado para buscar o primeiro índice onde um elemento pode ser encontrado em uma lista:
+
+```python
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+programming_languages.index('Java') # 1
+```
+
+- Se o elemento não puder ser encontrado usando o método `index()`, o resultado será um `ValueError`.
+
+## Tuplas em Python
+
+- **Definição**: Uma tupla é um tipo de dado Python usado para criar uma sequência ordenada de valores. Tuplas podem conter um conjunto misto de tipos de dados:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+```
+
+- Tuplas são imutáveis, ou seja, os elementos na tupla não podem ser alterados depois de criados. Se você tentar atualizar um dos itens na tupla, receberá um `TypeError`:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+programming_languages[0] = 'JavaScript'
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: "tuple" object does not support item assignment
+"""
+```
+
+- **Acessando elementos de uma tupla**: Para acessar um elemento de uma tupla, use a notação por colchetes e o número do índice:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+developer[1] # 34
+```
+
+- Índices negativos podem ser usados para acessar elementos começando pelo final da tupla:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[-2] # 4
+```
+
+- Se você tentar passar um número de índice que exceda ou seja igual ao comprimento da tupla, receberá um `IndexError`:
+
+```py
+numbers = (1, 2, 3, 4, 5)
+numbers[7]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: tuple index out of range
+"""
+```
+
+- Uma tupla também pode ser criada usando o construtor `tuple()`. Dentro do construtor, você pode passar diferentes iteráveis como strings, listas e até outras tuplas.
+
+```python
+developer = 'Jessica'
+
+print(tuple(developer)) 
+# Result: ('J', 'e', 's', 's', 'i', 'c', 'a')
+```
+
+- **Verificando itens em uma tupla**: Para checar se um item está em uma tupla, você pode usar a palavra-chave `in` assim:
+
+```py
+programming_languages = ('Python', 'Java', 'C++', 'Rust')
+
+'Rust' in programming_languages # True
+'JavaScript' in programming_languages # False
+```
+
+- **Desempacotando tuplas**: Itens podem ser desempacotados de uma tupla assim:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, age, job = developer
+```
+
+- Se precisar coletar os elementos restantes de uma tupla, você pode usar o operador asterisco (`*`) assim:
+
+```py
+developer = ('Alice', 34, 'Rust Developer')
+name, *rest = developer
+```
+
+- **Fatiando tuplas**: Fatiamento pode ser usado para extrair uma parte de uma tupla. Por exemplo, os itens `pie` e `cookies` podem ser fatiados em uma tupla separada:
+
+```py
+desserts = ('cake', 'pie', 'cookies', 'ice cream')
+desserts[1:3] # ('pie', 'cookies')
+```
+
+- **Removendo itens de tuplas**: Remover um item de uma tupla causará um `TypeError` pois tuplas são imutáveis:
+
+```py
+developer = ('Jane Doe', 23, 'Python Developer')
+del developer[1]
+
+"""
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: "tuple" object doesn't support item deletion
+"""
+```
+
+- **Quando usar uma tupla vs uma lista?**: Se você precisa de uma coleção dinâmica de elementos onde pode adicionar, remover e atualizar elementos, deve usar uma lista. Se sabe que está trabalhando com uma coleção fixa e imutável de dados, deve usar uma tupla.
+
+## Métodos comuns para tuplas
+
+- **`count()`**: Usado para determinar quantas vezes um item aparece em uma tupla. Por exemplo, você pode verificar quantas vezes a linguagem `'Rust'` aparece na tupla:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.count('Rust') # 2
+```
+
+- Se o item especificado no método `count()` não estiver presente na tupla, o valor de retorno será `0`:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.count('JavaScript') # 0
+```
+
+- Se nenhum argumento for passado para o método `count()`, o Python retornará um `TypeError`.
+    
+- **index()**: Usado para buscar o índice onde um item específico está presente na tupla. Aqui está um exemplo de uso do método `index()` para encontrar o índice da linguagem `'Java'`:
+    
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust')
+programming_languages.index('Java') # 1
+```
+
+- Se o item especificado não puder ser encontrado, o Python retornará um `ValueError`.
+    
+- Você pode passar um índice inicial opcional para o método `index()` para especificar onde começar a busca pelo item na tupla:
+    
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+programming_languages.index('Python', 3) # 5
+```
+
+- Também é possível passar um índice final opcional para o método `index()` para especificar onde parar a busca pelo item na tupla:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python', 'JavaScript', 'Python')
+programming_languages.index('Python', 2, 5) # 2
+```
+
+- **`sorted()`**: Usado para ordenar os elementos de qualquer iterável e retornar uma nova lista ordenada. Aqui está um exemplo de criação de uma nova lista de números usando a função `sorted()`:
+
+```py
+numbers = (13, 2, 78, 3, 45, 67, 18, 7)
+sorted(numbers) # [2, 3, 7, 13, 18, 45, 67, 78]
+```
+
+- **Modificando o comportamento da ordenação**: Você pode personalizar o comportamento da ordenação para um iterável usando os argumentos opcionais `reverse` e `key`. Aqui está um exemplo de uso do argumento `key` para ordenar itens em uma tupla pelo comprimento:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+sorted(programming_languages, key=len)
+
+# Result
+# ['C++', 'Rust', 'Java', 'Rust', 'Python', 'Python']
+```
+
+- Você pode criar uma nova lista de valores em ordem reversa, usando o argumento `reverse` assim:
+
+```py
+programming_languages = ('Rust', 'Java', 'Python', 'C++', 'Rust', 'Python')
+
+print(sorted(programming_languages, reverse=True))
+
+# Result
+# ['Rust', 'Rust', 'Python', 'Python', 'Java', 'C++']
+```
+
+## Loops em Python
+
+- **Definição**: Loops são usados para repetir um bloco de código por um número determinado de vezes.
+    
+- **Loop `for`**: Usado para iterar sobre uma sequência (como uma lista, tupla ou string) e executar um bloco de código para cada item nessa sequência. Aqui está um exemplo de uso de um loop `for` para iterar através de uma lista e imprimir cada linguagem no console:
+    
+
+```py
+programming_languages = ['Rust', 'Java', 'Python', 'C++']
+
+for language in programming_languages:
+    print(language)
+
+"""
+Result 
+
+Rust
+Java
+Python
+C++
+"""
+```
+
+- Aqui está um exemplo de uso de um loop `for` para iterar através da string `code` e imprimir cada caractere:
+
+```py
+for char in 'code':
+    print(char)
+
+"""
+Result 
+
+c
+o
+d
+e
+"""
+```
+
+- Loops `for` podem ser aninhados. Aqui está um exemplo de uso de um loop `for` aninhado:
+
+```py
+categories = ['Fruit', 'Vegetable']
+foods = ['Apple', 'Carrot', 'Banana']
+
+for category in categories:
+    for food in foods:
+        print(category, food)
+
+"""
+Result
+
+Fruit Apple
+Fruit Carrot
+Fruit Banana
+Vegetable Apple
+Vegetable Carrot
+Vegetable Banana
+"""
+
+```
+
+- **Loop `while`**: Repete um bloco de código até que a condição seja `False`. Aqui está um exemplo de uso de um loop `while` para um jogo de adivinhação:
+
+```py
+secret_number = 3
+guess = 0
+
+while guess != secret_number:
+    guess = int(input('Guess the number (1-5): '))
+    if guess != secret_number:
+        print('Wrong! Try again.')
+
+print('You got it!')
+
+"""
+Result
+
+Guess the number (1-5): 2
+Wrong! Try again.
+Guess the number (1-5): 1
+Wrong! Try again.
+Guess the number (1-5): 3
+You got it!
+"""
+
+```
+
+- **Declarações `break` e `continue`**: Usadas em loops para modificar a execução do loop.
+    
+- A declaração `break` é usada para sair do loop imediatamente quando uma certa condição é atendida. Aqui está um exemplo de uso da declaração `break` para uma lista de `developer_names`:
+    
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        break
+    print(developer)
+```
+
+- A declaração `continue` é usada para pular a iteração atual e passar para a próxima iteração do loop. Aqui está um exemplo de uso da declaração `continue` em vez de uma declaração `break`:
+
+```py
+developer_names = ['Jess', 'Naomi', 'Tom']
+
+for developer in developer_names:
+    if developer == 'Naomi':
+        continue
+    print(developer)
+```
+
+- Ambos os loops `for` e `while` podem ser combinados com uma cláusula `else`, que é executada somente quando o loop não foi terminado por um `break`:
+
+```python
+words = ['sky', 'apple', 'rhythm', 'fly', 'orange']
+
+for word in words:
+    for letter in word:
+        if letter.lower() in 'aeiou':
+            print(f"'{word}' contains the vowel '{letter}'")
+            break
+    else:
+        print(f"'{word}' has no vowels")
+```
+
+## Intervalos e seu uso em loops
+
+- **A função `range()`**: usada para gerar uma sequência de inteiros.
+
+```py
+range(start, stop, step)
+```
+
+- O argumento obrigatório `stop` é um inteiro (não inclusivo) que representa o ponto final para a sequência de números sendo gerada. Aqui está um exemplo de uso da função `range()`:
+
+```py
+for num in range(3):
+    print(num)
+```
+
+- Se um argumento `start` não for especificado, o padrão será `0`. Por padrão, a sequência de inteiros incrementa de `1`. Você pode usar o argumento opcional `step` para alterar o valor do incremento padrão. Aqui está um exemplo de geração de uma sequência de inteiros pares de 2 até, mas não incluindo, 11 (ou seja, inclui 10)
+
+```py
+for num in range(2, 11, 2):
+    print(num)
+```
+
+- Se você não fornecer nenhum argumento para a função `range()`, receberá um `TypeError`.
+    
+- A função `range()` aceita apenas inteiros como argumentos, não floats. Usar floats também resultará em um `TypeError`:
+    
+
+```py
+ERROR!
+Traceback (most recent call last):
+  File "<main.py>", line 1, in <module>
+TypeError: 'float' object cannot be interpreted as an integer
+```
+
+- Você pode usar um inteiro negativo para o argumento `step` para gerar uma sequência de inteiros em ordem decrescente:
+
+```py
+for num in range(40, 0, -10):
+    print(num)
+```
+
+- A função `range()` também pode ser usada para criar uma lista de inteiros ao usá-la com o construtor `list`. O construtor `list` é usado para converter um iterável em uma lista. Aqui está um exemplo de geração de uma lista de inteiros pares entre 2 e 10 inclusive:
+
+```py
+numbers = list(range(2, 11, 2))
+print(numbers) # [2, 4, 6, 8, 10]
+```
+
+## funções `enumerate()` e `zip()` em Python
+
+- **`enumerate()`**: usada para iterar sobre uma sequência e acompanhar o índice de cada item nessa sequência. A função `enumerate()` recebe um iterável como argumento e retorna um objeto `enumerate` que consiste no índice e valor de cada item no iterável.
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+for index, language in enumerate(languages):
+    print(f'Index {index} and language {language}')
+
+# Result
+# Index 0 and language Spanish
+# Index 1 and language English
+# Index 2 and language Russian
+# Index 3 and language Chinese
+
+```
+
+- A função `enumerate()` também pode ser usada fora de um loop `for`:
+
+```python
+languages = ['Spanish', 'English', 'Russian', 'Chinese']
+
+print(list(enumerate(languages)))
+# [(0, 'Spanish'), (1, 'English'), (2, 'Russian'), (3, 'Chinese')]
+```
+
+- A função `enumerate()` também aceita um argumento `start` opcional que especifica o valor inicial da contagem. Se esse argumento for omitido, a contagem começará em `0`.
+    
+- **`zip()`**: usada para iterar sobre múltiplos iteráveis em paralelo. Aqui está um exemplo usando a função `zip()` para iterar sobre `developers` e `ids`:
+    
+
+```python
+developers = ['Naomi', 'Dario', 'Jessica', 'Tom']
+ids = [1, 2, 3, 4]
+
+for name, dev_id in zip(developers, ids):
+    print(f'Name: {name}')
+    print(f'ID: {dev_id}')
+
+
+"""
+Result
+
+Name: Naomi
+ID: 1
+Name: Dario
+ID: 2
+Name: Jessica
+ID: 3
+Name: Tom
+ID: 4
+"""
+
+```
+
+## Compreensões de listas em Python
+
+- **Definição**: A compreensão de lista permite criar uma nova lista em uma única linha combinando o loop e a condição diretamente dentro dos colchetes. Isso torna o código mais curto e frequentemente mais fácil de ler.
+
+```py
+even_numbers = [num for num in range(21) if num % 2 == 0]
+print(even_numbers)
+```
+
+## Métodos iteráveis
+
+- **`filter()`**: Usada para filtrar elementos de um iterável com base em uma condição. Retorna um iterador que contém apenas os elementos que satisfazem a condição. Aqui está um exemplo de criação de uma nova lista apenas com palavras com mais de quatro caracteres:
+
+```py
+words = ['tree', 'sky', 'mountain', 'river', 'cloud', 'sun']
+
+def is_long_word(word):
+    return len(word) > 4
+
+long_words = list(filter(is_long_word, words))
+print(long_words) # ['mountain', 'river', 'cloud']
+```
+
+- **`map()`**: Usada para aplicar uma função a cada item de um iterável e retornar um novo iterável com os resultados. Aqui está um exemplo de uso da função `map()` para converter uma lista de temperaturas em celsius para fahrenheit:
+
+```py
+celsius = [0, 10, 20, 30, 40]
+
+def to_fahrenheit(temp):
+    return (temp * 9/5) + 32
+
+fahrenheit = list(map(to_fahrenheit, celsius))
+print(fahrenheit) # [32.0, 50.0, 68.0, 86.0, 104.0]
+```
+
+- **`sum()`**: Usada para obter a soma de um iterável como uma lista ou tupla. Aqui está um exemplo de uso da função `sum()`:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers)
+print(total) # Result: 50
+```
+
+- Você também pode passar um argumento `start` opcional que define o valor inicial para a soma. Aqui está um exemplo atualizado usando o argumento `start` como argumento posicional:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, 10) # positional argument
+print(total) # 60
+```
+
+- Você também pode optar por usar o argumento `start` como palavra-chave assim:
+
+```py
+numbers = [5, 10, 15, 20]
+total = sum(numbers, start=10) # keyword argument
+print(total) # 60
+```
+
+## Funções Lambda
+
+- **Definição**: Uma função lambda em Python é uma forma concisa de criar uma função sem nome (uma função anônima).
+- Funções lambda são frequentemente usadas como argumento para outra função. Aqui está um exemplo de uma função lambda:
+
+```py
+numbers = [1, 2, 3, 4, 5]
+
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # [2
+```
