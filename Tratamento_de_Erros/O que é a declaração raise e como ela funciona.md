@@ -1,0 +1,131 @@
+# O que é a declaração raise e como ela funciona?
+
+Em Python, a instrução `raise` é uma ferramenta poderosa que permite disparar manualmente exceções no seu código. Ele oferece controle sobre quando e como os erros são gerados, permitindo que você crie condições de erro personalizadas e imponha um comportamento específico do programa.
+
+A instrução `raise` é usada para lançar explicitamente uma exceção em qualquer ponto do seu programa, permitindo que você sinalize que uma condição de erro ocorreu ou que certos requisitos não foram atendidos.
+
+A declaração `raise` do Python pode ser usada de várias maneiras para disparar exceções. No seu nível mais básico, você pode lançar exceções internas ou criar mensagens de erro personalizadas. Aqui está um exemplo simples:
+
+```py
+def check_age(age):
+    if age < 0:
+        raise ValueError('Age cannot be negative')
+    return age
+
+try:
+    check_age(-5)
+except ValueError as e:
+    print(f'Error: {e}') # Error: Age cannot be negative
+```
+
+Você pode ver aqui que `raise` é a palavra-chave que dispara uma exceção.
+
+Neste exemplo, estamos gerando um `ValueError` com uma mensagem personalizada quando uma idade inválida é fornecida.
+
+A instrução `raise` também pode ser usada para relançar a exceção atual, o que é particularmente útil no tratamento de exceções:
+
+```py
+def process_data(data):
+    try:
+        result = int(data)
+        return result * 2
+    except ValueError:
+        print('Logging: Invalid data received')
+        raise  # Re-raises the same ValueError
+
+try:
+    process_data('abc')
+except ValueError:
+    print('Handled at higher level')
+```
+
+Aqui a palavra-chave `raise` (sem argumentos) relança a exceção atual que está sendo tratada.
+
+Isso permite que você registre ou execute a limpeza enquanto ainda propaga o erro pela pilha de chamadas.
+
+Você pode criar e lançar exceções personalizadas definindo suas próprias classes de exceção:
+
+```py
+class InsufficientFundsError(Exception):
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f'Insufficient funds: ${balance} available, ${amount} requested')
+
+def withdraw(balance, amount):
+    if amount > balance:
+        raise InsufficientFundsError(balance, amount)
+    return balance - amount
+
+try:
+    new_balance = withdraw(100, 150)
+except InsufficientFundsError as e:
+    print(f'Transaction failed: {e}')
+```
+
+Aqui você pode ver classes de exceção personalizadas que herdam de `Exception` ou suas subclasses.
+
+Você aprenderá mais sobre classes e herança em lições futuras. Por enquanto, saiba que esta é uma forma de criar suas próprias exceções com lógica personalizada.
+
+A declaração `raise` também pode ser usada com a palavra-chave `from` para encadear exceções, mostrando a relação entre diferentes erros:
+
+```py
+def parse_config(filename):
+    try:
+        with open(filename, 'r') as file:
+            data = file.read()
+            return int(data)
+    except FileNotFoundError:
+        raise ValueError('Configuration file is missing') from None
+    except ValueError as e:
+        raise ValueError('Invalid configuration format') from e
+
+config = parse_config('config.txt')
+```
+
+Aqui você pode ver que `raise ... from None` suprime o contexto da exceção original:
+
+```bash
+Traceback (most recent call last):
+  File "main.py", line 12, in <module>
+    config = parse_config('config.txt')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "main.py", line 7, in parse_config
+    raise ValueError('Configuration file is missing') from None
+ValueError: Configuration file is missing
+```
+
+E `raise ... from e` encadeia a nova exceção à original, preservando o histórico do erro:
+
+```bash
+Traceback (most recent call last):
+  File "main.py", line 5, in parse_config
+    return int(data)
+           ^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "main.py", line 12, in <module>
+    config = parse_config('config.txt')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "main.py", line 9, in parse_config
+    raise ValueError('Invalid configuration format') from e
+ValueError: Invalid configuration format
+```
+
+Você também pode levantar exceções condicionalmente usando declarações `assert`, que são essencialmente uma forma abreviada de `raise` com `AssertionError`:
+
+```py
+def calculate_square_root(number):
+    assert number >= 0, 'Cannot calculate square root of negative number'
+    return number ** 0.5
+
+try:
+    result = calculate_square_root(-4)
+except AssertionError as e:
+    print(f'Assertion failed: {e}')
+```
+
+A instrução `raise` é essencial para criar aplicações robustas onde você precisa aplicar regras de negócio, validar entradas e fornecer mensagens de erro significativas. Ao usar estrategicamente `raise`, você pode tornar seu código mais previsível e mais fácil de depurar, enquanto fornece aos usuários um feedback claro sobre o que deu errado.
