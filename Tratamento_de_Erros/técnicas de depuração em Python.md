@@ -1,0 +1,147 @@
+# Quais são algumas boas técnicas de depuração em Python?
+
+Depurar é uma habilidade essencial para qualquer desenvolvedor Python. Compreender técnicas fundamentais pode ajudar você a identificar e corrigir problemas de forma eficiente.
+
+Depuração é o processo de identificar e resolver erros ou bugs no seu código. Envolve examinar o código, entender o fluxo e usar ferramentas para identificar a origem dos problemas.
+
+Nesta lição, vamos revisar técnicas comuns de depuração que você pode usar no seu próximo projeto Python.
+
+## Usando a função `print()` e f-strings
+
+Primeiro, usar a função `print()` e f-strings em vários pontos do seu código pode ajudar você a entender o fluxo e o estado das variáveis. Por exemplo:
+
+```py
+def add(a, b):
+    result = a + b
+    print(f'Adding {a} and {b} gives {result}')
+    return result
+```
+
+Ao imprimir os valores de `a`, `b` e `result`, você pode verificar que a função se comporta conforme o esperado.
+
+## Depuração interativa com o módulo `pdb`
+
+Em seguida, você pode utilizar o módulo embutido `pdb` do Python para depuração interativa:
+
+```py
+import pdb
+
+def divide(a, b):
+    pdb.set_trace()
+    return a / b
+
+print(divide(10, 2))
+```
+
+Ao definir um trace com a função `set_trace()`, você pode avançar passo a passo pelo código, inspecionar variáveis e entender o comportamento do programa.
+
+Se você executar o código acima, verá uma saída mostrando a localização do arquivo que você está executando, a linha onde chamou a função `set_trace()` e o código imediatamente após ela, e um prompt interativo `pdb`:
+
+```py
+> /Users/fcc/Desktop/debugging.py(5)divide()
+-> return a / b
+(Pdb)
+```
+
+Se você digitar `help` no prompt, verá uma lista de comandos que pode usar:
+
+```py
+(Pdb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF    c          d        h         list      q        rv       undisplay
+a      cl         debug    help      ll        quit     s        unt      
+alias  clear      disable  ignore    longlist  r        source   until    
+args   commands   display  interact  n         restart  step     up       
+b      condition  down     j         next      return   tbreak   w        
+break  cont       enable   jump      p         retval   u        whatis   
+bt     continue   exit     l         pp        run      unalias  where    
+
+Miscellaneous help topics:
+==========================
+exec  pdb
+```
+
+Então você pode usar os comandos para depurar seu código.
+
+Por exemplo, se você quiser verificar o tipo dos elementos ao longo do seu código naquele momento, você pode usar o comando `whatis`:
+
+```py
+(Pdb) whatis a
+<class 'int'>
+(Pdb) whatis divide
+Function divide
+```
+
+Como você pode ver, no momento em que executa `set_trace()`, o tipo do parâmetro `a` é um inteiro, e `divide` é uma função.
+
+Então, para continuar a execução do seu código, você pode usar o comando `continue` ou um dos seus aliases, `cont` ou `c`:
+
+```py
+(Pdb) continue
+5.0
+```
+
+## Ferramentas de depuração do IDE
+
+Muitos Ambientes de Desenvolvimento Integrados (IDEs) oferecem ferramentas avançadas de depuração, como pontos de interrupção, execução passo a passo e inspeção de variáveis.
+
+## Usando o depurador do VS Code
+
+Se você usar o VS Code, pode definir pontos de interrupção no seu código e executar o debugger para pausar a execução nesses pontos. Aqui está como depurar a mesma função `divide`:
+
+**Passo 1: Configure seu código**
+
+Crie um arquivo chamado `main.py` com o seguinte conteúdo:
+
+```py
+def divide(a, b):
+    result = a / b
+    return result
+
+print(divide(10, 2))
+print(divide(15, 3))
+```
+
+**Passo 2: Defina um ponto de interrupção**
+
+1. Clique na margem (margem esquerda) ao lado da linha 2 (`result = a / b`) para definir um ponto de interrupção
+    
+2. Um ponto vermelho aparecerá, indicando que o ponto de interrupção está definido
+    
+
+**Passo 3: Comece a depuração**
+
+1. Pressione F5 ou vá em Executar > Iniciar depuração
+    
+2. Selecione "Python File" quando solicitado
+    
+3. O depurador irá pausar a execução no seu ponto de interrupção
+    
+
+**Passo 4: Inspecione as variáveis**
+
+- Passe o mouse sobre as variáveis para ver seus valores atuais
+    
+- Use o painel Variáveis à esquerda para ver todas as variáveis locais
+    
+- Use o Debug Console na parte inferior para avaliar expressões
+    
+
+**Passo 5: Execute o código passo a passo**
+
+Use a barra de ferramentas de depuração para:
+
+- **Continuar (F5)**: Retomar a execução até o próximo ponto de interrupção
+    
+- **Passar por cima (F10)**: Executar a linha atual e passar para a próxima
+    
+- **Entrar (F11)**: Entrar nas chamadas de função
+    
+- **Sair (Shift + F11)**: Sair da função atual
+    
+
+As ferramentas de depuração do IDE fornecem uma interface visual para examinar o estado do seu programa, facilitando a identificação e correção de problemas em comparação com o uso apenas de declarações print.
+
+Dominando essas técnicas fundamentais de depuração (declarações `print()`, o módulo `pdb` e ferramentas de IDE), você pode identificar e resolver problemas no seu código Python de forma eficaz. Cada técnica tem seu uso: declarações `print()` para verificações rápidas, `pdb` para exploração interativa e depuradores de IDE para inspeção visual.
