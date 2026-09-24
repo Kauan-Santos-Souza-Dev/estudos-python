@@ -16,7 +16,7 @@ A organização do repositório está dividida em módulos temáticos, acompanha
 Plaintext
 
 ```
-estudos-python-freecodecamp/
+estudos-python-
 │
 ├── 📘 Fundamentos_Python/
 │   ├── Introdução_Python/
