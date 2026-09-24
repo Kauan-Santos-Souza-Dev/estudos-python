@@ -1,12 +1,11 @@
-# estudos-python-freecodecamp-
+# estudos-python-
 
-🐍 Estudos de Python - freeCodeCamp
+🐍 Estudos de Python - 
 
 [![Python Version](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-freeCodeCamp-firebrick.svg)](https://www.freecodecamp.org/)
 [![Status](https://img.shields.io/badge/Status-Em%20Andamento-yellow.svg)](#)
 
-Este repositório contém anotações, resumos teóricos e exemplos práticos elaborados durante os estudos do curso/conteúdo de **Python** do [freeCodeCamp](https://www.freecodecamp.org/?utm_source=gemini).
+Este repositório contém anotações, resumos teóricos e exemplos práticos elaborados durante os estudos do curso/conteúdo de **Python** 
 
 O objetivo deste projeto é servir como um guia de referência rápida e material de consulta contínua sobre os fundamentos e conceitos essenciais da linguagem Python.
 
@@ -121,7 +120,7 @@ estudos-python-freecodecamp/
     
 - **Markdown** (para formatação das anotações)
     
-- Conteúdo baseado no currículo do **freeCodeCamp**
+- Conteúdo baseado no currículo de minhas fontes de estudos (**Youtube**, **freeCodeCamp**, **IAS** Dentre outros.)
     
 
 _Bons estudos! 🚀_
