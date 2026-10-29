@@ -1,0 +1,174 @@
+# O que são métodos especiais e para que servem?
+
+## O que são métodos especiais?
+
+Métodos especiais em Python, também conhecidos como "métodos mágicos" ou "métodos dunder", são métodos especiais do Python que começam e terminam com dois underscores (`__`). A palavra "dunder" vem justamente de double underscores (**d** de double, **under** de underscores).
+
+Você provavelmente já usou métodos especiais sem saber. Toda vez que você escreve algo como `3 + 4`, o Python silenciosamente executa `(3).__add__(4)` por trás dos panos. Esse é um método especial em ação. Então, embora você _possa_ chamar métodos especiais diretamente, raramente faz isso. Algo como `3 + 4` é muito mais claro e fácil de ler do que chamar `(3).__add__(4)` você mesmo.
+
+Além de `__add__`, `__init__()` é outro método especial que você verá e usará mais, pois é um inicializador de classe. Existem também outros como `__len__()` e `__str__()`.
+
+Pense nos métodos especiais como os diretores das atividades entre uma pessoa programando e o próprio interpretador da linguagem Python.
+
+## Quando o Python chama métodos especiais
+
+Lembre-se, você não precisa chamar métodos especiais diretamente. Em vez disso, o Python os chama automaticamente quando certas ações acontecem. Essas operações incluem:
+
+- **Operações aritméticas como adição, subtração, multiplicação, divisão e outras**. Para adição, `__add__()` é chamado, `__sub__()` para subtração, `__mul__()` para multiplicação e `__truediv__()` para divisão.
+    
+- **Operações de string como concatenação, repetição, formatação e conversão para texto**. `__add__()` é chamado para concatenação, `__mul__()` para repetição, `__format__()` para formatação, `__str__()` e `__repr__()` para conversão para texto e assim por diante.
+    
+- **Operações de comparação como igualdade, menor que, maior que e outras**. `__eq__()` é chamado para verificações de igualdade, `__lt__()` para menor que, `__gt__()` para maior que e assim por diante.
+    
+- **Operações de iteração como tornar um objeto iterável e avançar pelos itens**. `__iter__()` é chamado para retornar um iterador e `__next__()` para buscar o próximo item.
+    
+
+## Por que classes personalizadas precisam de métodos especiais
+
+Normalmente, os tipos de dados do Python como strings e números já sabem como somar coisas, fazer concatenação, comparar igualdade, ser usados em loops e outros.
+
+Mas quando você cria sua própria classe, o Python não saberá como lidar com as coisas automaticamente.
+
+É aí que os métodos especiais entram: eles permitem que você personalize o comportamento embutido do Python.
+
+Digamos que você queira obter o número de páginas em objetos book criados com a classe abaixo, ou compará-los e obter uma string legível dos objetos. Aqui está o que acontece sem métodos especiais:
+
+```python
+class Book:
+   def __init__(self, title, pages):
+       self.title = title
+       self.pages = pages
+
+book1 = Book("Built Wealth Like a Boss", 420)
+book2 = Book("Be Your Own Start", 420)
+
+try:
+    print(len(book1))
+except TypeError:
+    print("TypeError: object of type 'Book' has no len()")
+print(str(book1)) # <__main__.Book object at 0x102ed2900>
+print(book1 == book2) # False even though they have the same number of pages
+```
+
+No exemplo:
+
+- `len(book1)` gera um `TypeError` porque o Python não sabe como obter o comprimento do seu objeto book sem o `__len__()`. Tratar a exceção permite que o restante do código seja executado.
+    
+- `str(book1)` imprimiu algo como `<__main__.Book object at 0x102ed2900>` porque essa é a representação padrão quando você não usa `__str__()`
+    
+- `book1 == book2` resultou em `False` porque o Python apenas verifica se ambos os objetos são os mesmos na memória, não pelo conteúdo.
+    
+
+## Definindo seus próprios métodos especiais
+
+Aqui está como você pode definir seus próprios métodos especiais `__len__()`, `__str__()` e `__eq__()` para facilitar o trabalho com objetos criados a partir da classe `Book`:
+
+```python
+class Book:
+   def __init__(self, title, pages):
+       self.title = title
+       self.pages = pages
+
+   def __len__(self):
+       return self.pages
+
+   def __str__(self):
+       return f"'{self.title}' has {self.pages} pages"
+
+   def __eq__(self, other):
+       return self.pages == other.pages
+  
+book1 = Book("Built Wealth Like a Boss", 420)
+book2 = Book("Be Your Own Start", 420)
+
+print(len(book1)) # 420
+print(len(book2)) # 420
+print(str(book1)) # 'Built Wealth Like a Boss' has 420 pages
+print(str(book2)) # 'Be Your Own Start' has 420 pages
+print(book1 == book2) # True
+```
+
+## Um exemplo de carrinho de compras
+
+Outro exemplo é um carrinho de compras onde você faz o seguinte:
+
+- Adicione itens ao carrinho
+    
+- Remova itens do carrinho
+    
+- Obtenha o número de itens no carrinho
+    
+- Verifique quais itens estão no carrinho
+    
+- Verifique se um item específico está no carrinho
+    
+- Retorna ou exibe um item em um índice específico no carrinho
+    
+
+Embora você possa ter um método que adiciona itens ao carrinho e remove certos itens do carrinho, você pode criar métodos especiais para toda a outra funcionalidade:
+
+- `__len__()` para obter o comprimento dos itens no carrinho
+    
+- `__iter__()` para percorrer os itens no carrinho para que você possa vê-los
+    
+- `__contains__()` para verificar se um item específico está no carrinho
+    
+- `__getitem__()` para retornar ou exibir um item em um índice específico no carrinho
+    
+
+Aqui está um exemplo de uma classe `Cart` com esses métodos definidos pelo usuário e métodos especiais:
+
+```python
+class Cart:
+   def __init__(self):
+       self.items = []
+
+   def add(self, item):
+       self.items.append(item)
+
+   def remove(self, item):
+       if item in self.items:
+           self.items.remove(item)
+       else:
+           print(f'{item} is not in cart')
+
+   def list_items(self):
+       return self.items
+
+   def __len__(self):
+       return len(self.items)
+
+   def __getitem__(self, index):
+       return self.items[index]
+
+   def __contains__(self, item):
+       return item in self.items
+
+   def __iter__(self):
+       return iter(self.items)
+```
+
+E aqui está como você pode usá-los:
+
+```python
+cart = Cart()
+cart.add('Laptop')
+cart.add('Wireless mouse')
+cart.add('Ergo keyboard')
+cart.add('Monitor')
+
+for item in cart:
+   print(item, end=' ') # Laptop Wireless mouse Ergo keyboard Monitor
+
+print(len(cart)) # 4
+print(cart[3]) # Monitor
+
+print('Monitor' in cart) # True
+print('banana' in cart) # False
+
+cart.remove('Ergo keyboard')
+
+print(cart.list_items()) # ['Laptop', 'Wireless mouse', 'Monitor']
+
+cart.remove('banana') # banana is not in cart
+```
