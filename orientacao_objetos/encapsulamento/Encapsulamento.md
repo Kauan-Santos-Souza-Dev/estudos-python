@@ -1,0 +1,187 @@
+tags: [[Encapsulamento]]
+
+# O que é programação orientada a objetos e como funciona a encapsulação?
+
+## o que é programação orientada a objetos?
+
+Programação orientada a objetos, também conhecida como OOP, é um estilo de programação no qual os desenvolvedores tratam tudo no seu código como um objeto do mundo real.
+
+Uma classe é como um modelo para criar objetos. Cada objeto criado a partir de uma classe tem atributos que definem dados e métodos que definem os comportamentos dos objetos.
+
+## criando classes e objetos
+
+Em uma lição anterior, você aprendeu como criar classes. Aqui está um lembrete da sintaxe:
+
+Código de exemplo
+
+```py
+class ClassName:
+   def __init__(self, parameters):
+       attribute = value
+
+   def method_name(self):
+       # method logic
+```
+
+Aqui está um exemplo de uma classe que usa o método especial `__init__` para inicializar os atributos brand e color sempre que um objeto é criado usando a classe:
+
+Código de exemplo
+
+```py
+class Car:
+   def __init__(self, brand, color):
+       self.brand = brand
+       self.color = color
+
+# create two objects from the Car class
+car1 = Car('Toyota', 'red')
+car2 = Car('Lambo', 'green')
+
+print('Car 1 Brand:', car1.brand) # Car 1 Brand: Toyota
+print('Car 1 Color:', car1.color) # Car 1 Color: red
+
+print('Car 2 Brand:', car2.brand) # Car 2 Brand: Lambo
+print('Car 2 Color:', car2.color) # Car 2 Color: green
+```
+
+## o que é encapsulamento?
+
+encapsulamento é guardar os dados dentro da classe e controlar como eles são acessados por fora
+
+A programação orientada a objetos tem quatro princípios-chave que ajudam você a organizar e gerenciar o código de forma eficaz. Eles são encapsulamento, herança, polimorfismo e abstração.
+
+O restante desta lição vai se concentrar em como a encapsulação funciona.
+
+Encapsulamento é o agrupamento dos atributos e métodos de um objeto em uma única unidade, a classe.
+
+Com encapsulamento, você pode ocultar o estado interno do objeto atrás de um conjunto simples de métodos e atributos públicos que funcionam como portas. Atrás dessas portas estão atributos e métodos privados que controlam como os dados mudam e quem pode vê-los.
+
+## usando um prefixo de sublinhado simples
+
+Vamos supor que você queira rastrear o saldo de uma carteira. Você quer permitir que as pessoas depositem ou retirem dinheiro da carteira, mas ninguém deve ser capaz de alterar o saldo diretamente.
+
+Nesse caso, você pode tornar os métodos `deposit()` e `withdraw()` públicos e esconder o saldo no atributo `_balance`:
+
+Código de exemplo
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self._balance = balance # For internal use by convention
+
+   def deposit(self, amount):
+       if amount > 0:
+           self._balance += amount # Add to the balance safely
+
+   def withdraw(self, amount):
+       if 0 < amount <= self._balance:
+           self._balance -= amount # Remove from the balance safely
+```
+
+Por convenção, prefixar atributos e métodos com um único underscore significa que eles são destinados ao uso interno. Ninguém deve acessá-los diretamente de fora da classe, pois isso vai contra os princípios de encapsulamento e pode levar a bugs.
+
+## usando um prefixo de sublinhado duplo
+
+Enquanto um prefixo de um único underscore é apenas uma convenção, prefixar atributos e métodos com um duplo underscore efetivamente impede que eles sejam acessados de fora da sua classe, tornando esses atributos e métodos privados.
+
+Código de exemplo
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self.__balance = balance # Private attribute
+
+   def deposit(self, amount):
+       if amount > 0:
+           self.__balance += amount # Add to the balance safely
+
+   def withdraw(self, amount):
+       if 0 < amount <= self.__balance:
+           self.__balance -= amount # Remove from the balance safely
+
+account = Wallet(500)
+print(account.__balance) # AttributeError: 'Wallet' object has no attribute '__balance'
+```
+
+Para obter o valor atual de `__balance`, você pode definir um método `get_balance`. Por exemplo:
+
+Código de exemplo
+
+```py
+class Wallet:
+   def __init__(self, balance):
+       self.__balance = balance
+
+   def deposit(self, amount):
+       if amount > 0:
+           self.__balance += amount
+
+   def withdraw(self, amount):
+       if 0 < amount <= self.__balance:
+           self.__balance -= amount
+  
+   def get_balance(self):
+       return self.__balance
+
+
+acct_one = Wallet(100)
+acct_one.deposit(50)
+print(acct_one.get_balance()) # 150
+
+acct_two = Wallet(450)
+acct_two.withdraw(28)
+print(acct_two.get_balance()) # 422
+
+acct_two.deposit(150)
+print(acct_two.get_balance()) # 572
+```
+
+## definindo métodos privados
+
+Você também pode definir um método privado `__validate` para verificar se todo valor de depósito ou retirada é um número positivo:
+
+Código de exemplo
+
+```py
+class Wallet:
+   def __init__(self):
+       self.__balance = 0
+
+   def __validate(self, amount):
+       if amount < 0:
+           raise ValueError('Amount must be positive')
+
+   def deposit(self, amount):
+       self.__validate(amount)
+       self.__balance += amount
+
+   def withdraw(self, amount):
+       self.__validate(amount)
+       if amount > self.__balance:
+           raise ValueError('Insufficient funds')
+       self.__balance -= amount
+
+   def get_balance(self):
+       return self.__balance
+
+acct_one = Wallet()
+acct_one.deposit(3)
+print(acct_one.get_balance()) # 3
+
+acct_one.deposit(50)
+print(acct_one.get_balance()) # 53
+
+acct_one.deposit(-4)  # ValueError: Amount must be positive
+acct_one.withdraw(-8) # ValueError: Amount must be positive
+acct_one.withdraw(58) # ValueError: Insufficient funds
+```
+
+Como você pode ver, o método `__validate` é privado e é executado nos bastidores nos métodos públicos `deposit()` e `withdraw()` para garantir que o valor seja sempre válido.
+
+Em uma próxima lição, você aprenderá mais sobre como atributos prefixados com um duplo underscore funcionam.
+
+## Resumo
+
+Em resumo, encapsulamento protege os dados internos por trás de métodos públicos claros. É assim que você mantém suas classes seguras contra alterações indevidas e centraliza a validação em um único lugar. Você pode atualizar ou estender seu código livremente, sabendo que o código externo só acessa as interfaces que você expõe.
+
+[[Como as classes funcionam e como elas diferem dos objetos]]

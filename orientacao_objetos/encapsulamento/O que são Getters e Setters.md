@@ -1,0 +1,163 @@
+## O que são getters e setters?
+
+
+Getters e setters são uma das formas mais comuns de implementar o **encapsulamento**, que é o pilar de POO que consiste em proteger o estado interno de um objeto e controlar como ele é lido e alterado.
+
+A ideia é: em vez de deixar o atributo exposto para qualquer alteração direta, o objeto oferece uma “porta de entrada” controlada. O getter controla a leitura, o setter controla a escrita e pode aplicar regras, como impedir saldo negativo.
+Getters e setters são métodos que permitem controlar como os atributos de uma classe são acessados e modificados. Com getters você recupera um valor e com setters você define um valor.
+
+## O que são propriedades?
+
+Essas ações são feitas através do que é conhecido como propriedades. Elas são o que conectam getters e setters e permitem o acesso aos dados.
+
+Propriedades agem como atributos mas se comportam como métodos nos bastidores. Pense nelas como dados que você define como métodos mas funcionam como atributos. Isso significa que você pode acessar propriedades com notação de ponto em vez de parênteses.
+
+A principal função das propriedades é executar lógica extra nos bastidores quando você obtém, define ou exclui valores com elas. Isso as torna a escolha perfeita quando você quer acessar ou manipular dados dentro de objetos.
+
+Então por que usar propriedades para isso em vez de métodos? É principalmente uma questão de legibilidade e convenção. Elas tornam seu código mais limpo e fácil de ler.
+
+Quando você usa um método, sempre precisa chamá-lo com parênteses. Mas com uma propriedade, você pode acessá-la como um atributo normal usando a notação de ponto. Isso faz seu código parecer simples mesmo quando está realizando trabalho extra nos bastidores.
+
+Por exemplo, você pode querer calcular um valor ou verificar se um novo valor é válido antes de salvá-lo. Em vez de chamar um método para isso, você pode usar uma forma semelhante a um atributo para fazer isso.
+
+## Criando propriedades com o decorador `@property`
+
+Em Python, um decorator é uma function que modifica as funcionalidades de outras functions ou classes, sem alterar seu code original.
+
+Embora seja possível criar decoradores personalizados, isso está além do escopo desta lição. Apenas saiba que, para criar uma propriedade, você define um método e coloca o decorador `@property` acima dele. Isso transforma o método em uma propriedade, para que ele possa ser acessado como um atributo enquanto internamente faz a chamada do método decorado.
+
+## Criando um getter
+
+Isso nos leva aos getters. Veja como criar um com o decorador `@property`:
+
+Código de exemplo
+
+```py
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self): # A getter to get the radius
+        return self._radius
+  
+    @property
+    def area(self):  # A getter to calculate area
+        return 3.14 * (self._radius ** 2)
+
+my_circle = Circle(3)
+
+print(my_circle.radius) # 3
+print(my_circle.area) # 28.26
+```
+
+Este exemplo obtém um raio e a área de um círculo.
+
+Observe como usamos `_radius` em vez de radius dentro da classe. O underscore é uma convenção comum em Python para mostrar que um atributo é destinado a ser privado. Em outras palavras, isso significa que é para uso interno e não deve ser acessado diretamente de fora da classe.
+
+## Criando um setter
+
+Para criar um setter para definir o raio, por exemplo, você precisa definir outro método com o mesmo nome e usar `@<property_name>.setter` acima dele:
+
+Usar `self.radius` dentro de `__init__` garante que o setter seja executado durante a criação do objeto, então valores inválidos de radius são detectados imediatamente.
+
+Código de exemplo
+
+```py
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius # Calling the setter
+
+    @property
+    def radius(self):  # A getter to get the radius
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):  # A setter to set the radius
+        if value <= 0:
+            raise ValueError('Radius must be positive')
+        self._radius = value
+
+my_circle = Circle(3)
+print('Initial radius:', my_circle.radius) # Initial radius: 3
+
+my_circle.radius = 8
+print('After modifying the radius:', my_circle.radius) # After modifying the radius: 8
+```
+
+Neste exemplo, o setter do raio não está apenas definindo o raio para o círculo, ele também está executando uma validação que garante que o raio não seja um número negativo.
+
+## Como o Python chama getters e setters
+
+Depois que você define getters e setters, o Python os chama automaticamente nos bastidores sempre que você usa a sintaxe normal de atributo:
+
+Código de exemplo
+
+```py
+my_circle.radius # This will call the getter
+my_circle.radius = 4 # This will call the setter
+```
+
+Observe que dentro do setter, você não pode usar o mesmo nome da propriedade ao atribuir um novo valor. Isso porque `self.radius = value` chamará o setter dentro do próprio método setter, levando a uma recursão infinita e a um `RecursionError`. Portanto, você deve sempre usar a forma com prefixo de sublinhado `self._radius = value`.
+
+## Criando um deleter
+
+Assim como você pode controlar como um atributo é acessado através do getter e como ele é modificado com o setter, você também pode controlar como ele é deletado usando o deleter.
+
+Um deleter executa lógica personalizada quando você usa a instrução del em uma propriedade. Para criar um, você usa o decorador `@<property_name>.deleter`:
+
+Código de exemplo
+
+```py
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    # Getter
+    @property
+    def radius(self):
+        return self._radius
+
+    # Setter
+    @radius.setter
+    def radius(self, value):
+        if value <= 0:
+            raise ValueError("Radius must be positive")
+        self._radius = value
+
+    # Deleter
+    @radius.deleter
+    def radius(self):
+        print("Deleting radius...")
+        del self._radius
+```
+
+Aqui está como o deleter pode ser utilizado:
+
+Código de exemplo
+
+```py
+# Create circle object with a radius
+my_circle = Circle(33)
+print("Initial radius:", my_circle.radius)  # 33
+
+# Delete the radius
+# This calls the deleter
+del my_circle.radius # Deleting radius...
+print("Radius deleted!") # Radius deleted!
+
+# Try to access radius after deletion
+try:
+    print(my_circle.radius)
+except AttributeError as e:
+    print("Error:", e) # Error: 'Circle' object has no attribute '_radius'
+```
+
+## Resumo
+
+A lição disso é que:
+
+- Getters permitem que você recupere um valor ou até mesmo calcule um valor dinamicamente.
+- Setters permitem que você modifique os valores com segurança executando verificações antes da atribuição.
+- Propriedades são o que conectam esses getters e setters para que você possa escrever lógica enquanto ainda usa a notação de ponto.
+- Deleters permitem que você defina o que acontece quando um atributo é deletado.
